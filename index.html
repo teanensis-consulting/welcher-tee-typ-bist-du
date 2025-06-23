@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcher Tee-Typ bist du?</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .quiz-container {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            text-align: center;
+            color: #2c5530;
+            margin-bottom: 10px;
+            font-size: 2em;
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-style: italic;
+        }
+        
+        .question {
+            margin-bottom: 25px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 15px;
+            border-left: 5px solid #4a7c59;
+        }
+        
+        .question h3 {
+            margin-top: 0;
+            color: #2c5530;
+            font-size: 1.1em;
+        }
+        
+        .options {
+            display: grid;
+            gap: 10px;
+        }
+        
+        .option {
+            padding: 12px 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: white;
+        }
+        
+        .option:hover {
+            border-color: #4a7c59;
+            background: #f0f7f1;
+            transform: translateY(-2px);
+        }
+        
+        .option.selected {
+            border-color: #4a7c59;
+            background: #e8f5e8;
+            font-weight: bold;
+        }
+        
+        .emoji {
+            margin-right: 8px;
+        }
+        
+        .result-button {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(45deg, #4a7c59, #6fa76f);
+            color: white;
+            border: none;
+            border-radius: 15px;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: transform 0.3s ease;
+        }
+        
+        .result-button:hover {
+            transform: translateY(-3px);
+        }
+        
+        .result-button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .result {
+            margin-top: 30px;
+            padding: 25px;
+            background: linear-gradient(135deg, #e8f5e8, #f0f7f1);
+            border-radius: 15px;
+            border: 3px solid #4a7c59;
+            text-align: center;
+            display: none;
+        }
+        
+        .result h2 {
+            color: #2c5530;
+            margin-bottom: 15px;
+            font-size: 1.5em;
+        }
+        
+        .result-emoji {
+            font-size: 3em;
+            margin-bottom: 15px;
+        }
+        
+        .share-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background: #1a73e8;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="quiz-container">
+        <h1>🍃 Welcher Tee-Typ bist du?</h1>
+        <p class="subtitle">Finde heraus, welche Tee-Persönlichkeit in dir steckt!</p>
+        
+        <div class="question">
+            <h3>1. Wie bereitest du normalerweise deinen Tee zu?</h3>
+            <div class="options">
+                <div class="option" data-value="pragmatic">
+                    <span class="emoji">⚡</span>Teebeutel rein, heißes Wasser drauf, fertig!
+                </div>
+                <div class="option" data-value="traditional">
+                    <span class="emoji">🎭</span>Mit Zeremonie: Temperatur messen, Timer stellen, alles perfekt
+                </div>
+                <div class="option" data-value="explorer">
+                    <span class="emoji">🔬</span>Experimentiere gerne mit verschiedenen Methoden
+                </div>
+                <div class="option" data-value="coffee">
+                    <span class="emoji">☕</span>Ehrlich? Ich trinke eigentlich lieber Kaffee...
+                </div>
+            </div>
+        </div>
+
+        <div class="question">
+            <h3>2. Wann trinkst du am liebsten Tee?</h3>
+            <div class="options">
+                <div class="option" data-value="pragmatic">
+                    <span class="emoji">🌅</span>Morgens, um wach zu werden
+                </div>
+                <div class="option" data-value="traditional">
+                    <span class="emoji">🕐</span>Nachmittags bei der traditionellen Tea Time
+                </div>
+                <div class="option" data-value="explorer">
+                    <span class="emoji">🌙</span>Eigentlich den ganzen Tag, je nach Stimmung und Teesorte
+                </div>
+                <div class="option" data-value="social">
+                    <span class="emoji">👥</span>Wenn Freunde da sind - Tee ist Gemeinschaft!
+                </div>
+            </div>
+        </div>
+
+        <div class="question">
+            <h3>3. Dein Lieblings-Tee-Setup ist...</h3>
+            <div class="options">
+                <div class="option" data-value="pragmatic">
+                    <span class="emoji">🏃</span>Thermoskanne to-go, muss schnell gehen
+                </div>
+                <div class="option" data-value="traditional">
+                    <span class="emoji">🏺</span>Schöne Teekanne, passende Tassen, alles stimmig
+                </div>
+                <div class="option" data-value="explorer">
+                    <span class="emoji">⚗️</span>Gaiwan, verschiedene Gefäße, je nach Tee das Richtige
+                </div>
+                <div class="option" data-value="minimalist">
+                    <span class="emoji">🎯</span>Eine gute Tasse reicht mir völlig
+                </div>
+            </div>
+        </div>
+
+        <div class="question">
+            <h3>4. Wenn jemand sagt "Chai Latte", denkst du...</h3>
+            <div class="options">
+                <div class="option" data-value="pragmatic">
+                    <span class="emoji">👍</span>Lecker! Hauptsache es schmeckt
+                </div>
+                <div class="option" data-value="explorer">
+                    <span class="emoji">🤔</span>Interessant, aber echter Masala Chai ist was anderes
+                </div>
+                <div class="option" data-value="snob">
+                    <span class="emoji">😤</span>Das ist kein richtiger Tee! *innerlich aufgeregt*
+                </div>
+                <div class="option" data-value="social">
+                    <span class="emoji">☕</span>Starbucks-Klassiker, perfekt für Dates
+                </div>
+            </div>
+        </div>
+
+        <div class="question">
+            <h3>5. Wie viel Ahnung hast du von Tee?</h3>
+            <div class="options">
+                <div class="option" data-value="beginner">
+                    <span class="emoji">🤷</span>Grüner Tee ist grün, schwarzer Tee ist schwarz... oder?
+                </div>
+                <div class="option" data-value="explorer">
+                    <span class="emoji">📚</span>Ich lese gerne über verschiedene Anbaugebiete und Verarbeitungsmethoden
+                </div>
+                <div class="option" data-value="expert">
+                    <span class="emoji">🎓</span>Ich kann Oolong allein am Geruch von verschiedenen Bergen unterscheiden
+                </div>
+                <div class="option" data-value="practical">
+                    <span class="emoji">🤓</span>Weiß einiges, aber ohne Angeber-Modus
+                </div>
+            </div>
+        </div>
+
+        <div class="question">
+            <h3>6. Dein Traum-Tee-Erlebnis wäre...</h3>
+            <div class="options">
+                <div class="option" data-value="traditional">
+                    <span class="emoji">🏮</span>Traditionelle Tee-Zeremonie in Japan oder China
+                </div>
+                <div class="option" data-value="explorer">
+                    <span class="emoji">🗻</span>Tee-Farm-Tour durch die Berge von Darjeeling
+                </div>
+                <div class="option" data-value="social">
+                    <span class="emoji">🎪</span>Tee-Festival mit Freunden und vielen verschiedenen Sorten
+                </div>
+                <div class="option" data-value="cozy">
+                    <span class="emoji">🏠</span>Gemütlich zuhause mit einem guten Buch und perfektem Tee
+                </div>
+            </div>
+        </div>
+
+        <button class="result-button" onclick="calculateResult()" disabled>
+            🔮 Zeig mir meinen Tee-Typ!
+        </button>
+
+        <div class="result" id="result">
+            <div class="result-emoji" id="resultEmoji"></div>
+            <h2 id="resultTitle"></h2>
+            <p id="resultDescription"></p>
+            <button class="share-button" onclick="shareResult()">📱 Ergebnis teilen</button>
+        </div>
+    </div>
+
+    <script>
+        let answers = {};
+        let questionCount = 6;
+        
+        document.querySelectorAll('.option').forEach(option => {
+            option.addEventListener('click', function() {
+                const question = this.closest('.question');
+                const questionIndex = [...document.querySelectorAll('.question')].indexOf(question);
+                
+                // Remove selection from other options in this question
+                question.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+                
+                // Select this option
+                this.classList.add('selected');
+                
+                // Store answer
+                answers[questionIndex] = this.dataset.value;
+                
+                // Check if all questions answered
+                if (Object.keys(answers).length === questionCount) {
+                    document.querySelector('.result-button').disabled = false;
+                }
+            });
+        });
+        
+        function calculateResult() {
+            const counts = {};
+            Object.values(answers).forEach(answer => {
+                counts[answer] = (counts[answer] || 0) + 1;
+            });
+            
+            // Find most common answer type
+            const resultType = Object.keys(counts).reduce((a, b) => counts[a] > counts[b] ? a : b);
+            
+            const results = {
+                'pragmatic': {
+                    emoji: '⚡',
+                    title: 'Der Pragmatische',
+                    description: 'Du liebst Tee, aber ohne Schnickschnack! Hauptsache er schmeckt und macht wach. Du bist der Typ, der auch mal im Büro einen Teebeutel in der Kaffeetasse vergisst. Völlig okay - Tee soll das Leben einfacher machen, nicht komplizierter!'
+                },
+                'traditional': {
+                    emoji: '🎭',
+                    title: 'Der Traditionalist',
+                    description: 'Du zelebrierst Tee wie andere Leute Wein! Richtige Temperatur, richtige Zeit, richtige Atmosphäre. Du weißt, dass Tee mehr ist als ein Getränk - es ist ein Ritual. Deine Freunde kommen gerne zu dir zum Tee, weil sie wissen: hier wird es besonders.'
+                },
+                'explorer': {
+                    emoji: '🔬',
+                    title: 'Der Tee-Entdecker',
+                    description: 'Du bist neugierig auf alles, was mit Tee zu tun hat! Neue Sorten, alte Traditionen, verschiedene Zubereitungsarten - du probierst alles aus. Dein Teeschrank ist dein Labor und jede Tasse ein kleines Experiment. Houjicha bei 100 Grad? Challenge accepted!'
+                },
+                'social': {
+                    emoji: '👥',
+                    title: 'Der Gesellige',
+                    description: 'Für dich ist Tee vor allem eins: ein Grund, Zeit mit anderen zu verbringen! Du liebst Tee-Dates, gemeinsame Verkostungen und lange Gespräche bei einer warmen Tasse. Tee verbindet Menschen - und du bist der lebende Beweis dafür!'
+                },
+                'expert': {
+                    emoji: '🎓',
+                    title: 'Der Tee-Professor',
+                    description: 'Du weißt ALLES über Tee! Anbaugebiete, Verarbeitungsmethoden, optimale Ziehzeiten - du bist eine wandelnde Tee-Enzyklopädie. Andere fragen dich um Rat und du gibst gerne dein Wissen weiter. Respekt für deine Expertise!'
+                },
+                'cozy': {
+                    emoji: '🏠',
+                    title: 'Der Gemütliche',
+                    description: 'Tee ist für dich pure Entspannung! Eine warme Tasse, ein gutes Buch, gemütliche Atmosphäre - perfekt. Du schätzt die ruhigen Momente des Lebens und Tee hilft dir dabei, den Alltag hinter dir zu lassen. Self-care at its finest!'
+                },
+                'coffee': {
+                    emoji: '☕',
+                    title: 'Der Geheime Kaffee-Fan',
+                    description: 'Du machst diesen Test wahrscheinlich nur, weil jemand anders ihn dir geschickt hat! 😄 Aber hey, vielleicht entdeckst du ja doch noch deine Liebe zum Tee. Ein guter Chai oder Earl Grey könnte der Anfang einer wunderbaren Freundschaft sein!'
+                },
+                'minimalist': {
+                    emoji: '🎯',
+                    title: 'Der Minimalistische',
+                    description: 'Weniger ist mehr - das ist dein Tee-Motto! Du brauchst nicht viel Zeug, um guten Tee zu genießen. Eine schöne Tasse, qualitätsvoller Tee, fertig. Du schätzt Einfachheit und weißt, dass die besten Dinge im Leben oft die einfachsten sind.'
+                }
+            };
+            
+            const result = results[resultType] || results['pragmatic'];
+            
+            document.getElementById('resultEmoji').textContent = result.emoji;
+            document.getElementById('resultTitle').textContent = result.title;
+            document.getElementById('resultDescription').textContent = result.description;
+            document.getElementById('result').style.display = 'block';
+            
+            // Scroll to result
+            document.getElementById('result').scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        function shareResult() {
+            const title = document.getElementById('resultTitle').textContent;
+            const text = `Ich bin "${title}" - welcher Tee-Typ bist du? 🍃`;
+            
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Tee-Typ Quiz',
+                    text: text,
+                    url: window.location.href
+                });
+            } else {
+                navigator.clipboard.writeText(text + '\n' + window.location.href);
+                alert('Text wurde in die Zwischenablage kopiert!');
+            }
+        }
+    </script>
+</body>
+</html>
